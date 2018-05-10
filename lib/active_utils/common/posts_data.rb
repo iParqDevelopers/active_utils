@@ -44,7 +44,10 @@ module ActiveMerchant #:nodoc:
       connection.read_timeout = read_timeout
       connection.retry_safe   = retry_safe
       connection.verify_peer  = ssl_strict
-      connection.ssl_version  = ssl_version
+      # Original code which defaults to :SSLv23
+      # connection.ssl_version  = ssl_version
+      # Hard-wire to TLSv1_2 as this is what Authorize.net accepts
+      connection.ssl_version  = :TLSv1_2
       connection.logger       = logger
       connection.max_retries  = max_retries
       connection.tag          = self.class.name
