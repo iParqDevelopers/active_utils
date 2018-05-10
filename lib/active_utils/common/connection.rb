@@ -113,7 +113,10 @@ module ActiveMerchant
       return unless endpoint.scheme == "https"
 
       http.use_ssl = true
-      http.ssl_version = ssl_version if ssl_version
+      # Original code which defaults to :SSLv23
+      # http.ssl_version = ssl_version if ssl_version
+      # Hard-wire to TLSv1_2 as this is what Authorize.net accepts
+      http.ssl_version = :TLSv1_2
 
       if verify_peer
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
